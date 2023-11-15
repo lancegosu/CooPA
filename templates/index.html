@@ -45,18 +45,7 @@
             background-color: white;
             margin-top: 10px;
             white-space: pre-line; /* Allows line breaks in the container */
-
         }
-
-<!--        .citation-container {-->
-<!--            /* Add or adjust your CSS styles here */-->
-<!--            margin-top: 10px; /* Adjust the margin as needed */-->
-<!--            text-align: left; /* Align text to the left within the citation container */-->
-<!--            padding: 10px;-->
-<!--            border: 1px solid #ccc;-->
-<!--            border-radius: 4px;-->
-<!--            background-color: white;-->
-<!--        }-->
     </style>
 </head>
 <body>
@@ -68,15 +57,13 @@
         <button type="submit">Submit</button>
     </form>
     <br>
-    <div class="result-container" id="result1"></div> <!-- Result container for first form -->
+    <div class="result-container" id="result1"></div>
     <div id="loadingAnimation" style="display: none;">
         Loading...
     </div>
     <br>
     <button class="textToSpeechButton" data-result-container="result1">Listen to Result</button>
     <button class="stopSpeechButton">Stop</button>
-<!--    <br>-->
-<!--    <div class="citation-container" id="citation1"></div> &lt;!&ndash; Container for citations &ndash;&gt;-->
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -112,14 +99,6 @@
                     } else {
                         alert('There is no text to read.');
                     }
-
-<!--                    if (resultText) {-->
-<!--                        const utterance = new SpeechSynthesisUtterance(resultText);-->
-<!--                        synth.speak(utterance);-->
-<!--                        currentUtterance = utterance;-->
-<!--                    } else {-->
-<!--                        alert('There is no text to read.');-->
-<!--                    }-->
                 });
             });
 
@@ -163,7 +142,6 @@
             const userInput1 = document.getElementById('text_input1').value;
             const resultContainer = document.getElementById('result1'); // Get the result container for the first form
             const loadingAnimation = document.getElementById('loadingAnimation'); // Get the loading animation element
-<!--            const citationContainer = document.getElementById('citation1'); // Get the citation container-->
 
             loadingAnimation.style.display = 'block';
 
@@ -192,15 +170,6 @@
                 } else {
                     resultContainer.textContent = result;
                 }
-                
-<!--                // Extract source URLs and display them with each citation on a new line-->
-<!--                const sourceURLs = result.split("Sources:")[1];-->
-<!--                if (sourceURLs) {-->
-<!--                    const sourceURLArray = sourceURLs.split('\n').slice(1); // Slice to remove the first empty element-->
-<!--                    citationContainer.innerHTML = sourceURLArray.join('<br>'); // Join the array with line breaks-->
-<!--                } else {-->
-<!--                    citationContainer.textContent = "No sources found.";-->
-<!--                }-->
             });
         });
     </script>
