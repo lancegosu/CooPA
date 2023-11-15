@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Papaya</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            padding: 8px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Styles for the result containers */
+        .result-container {
+            text-align: left; /* Align text to the left within the result containers */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+            margin-top: 10px;
+            white-space: pre-line; /* Allows line breaks in the container */
+
+        }
+
+<!--        .citation-container {-->
+<!--            /* Add or adjust your CSS styles here */-->
+<!--            margin-top: 10px; /* Adjust the margin as needed */-->
+<!--            text-align: left; /* Align text to the left within the citation container */-->
+<!--            padding: 10px;-->
+<!--            border: 1px solid #ccc;-->
+<!--            border-radius: 4px;-->
+<!--            background-color: white;-->
+<!--        }-->
+    </style>
+</head>
+<body>
+    <h1>Papaya</h1>
+    <form id="textForm1">
+        <label for="text_input1">Ask PA anything!</label>
+        <input type="text" id="text_input1" name="user_input1" placeholder="Speak or type your input here">
+        <button type="button" class="speechRecognitionButton" data-input-field="text_input1">Speak</button>
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <div class="result-container" id="result1"></div> <!-- Result container for first form -->
+    <div id="loadingAnimation" style="display: none;">
+        Loading...
+    </div>
+    <br>
+    <button class="textToSpeechButton" data-result-container="result1">Listen to Result</button>
+    <button class="stopSpeechButton">Stop</button>
+<!--    <br>-->
+<!--    <div class="citation-container" id="citation1"></div> &lt;!&ndash; Container for citations &ndash;&gt;-->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the TTS feature for all forms
+            const synth = window.speechSynthesis;
+            let currentUtterance = null;
+
+            const textToSpeechButtons = document.querySelectorAll('.textToSpeechButton');
+            const stopSpeechButtons = document.querySelectorAll('.stopSpeechButton');
+
+            textToSpeechButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    // Stop any currently playing speech
+                    if (currentUtterance) {
+                        synth.cancel();
+                    }
+
+                    const resultContainerId = event.target.getAttribute('data-result-container');
+                    const resultContainer = document.getElementById(resultContainerId);
+                    const resultText = resultContainer.textContent;
+
+                    if (resultText) {
+                        // Check for the presence of "Sources:" in the text
+                        if (resultText.includes('Sources:')) {
+                            const textBeforeSources = resultText.split('Sources:')[0]; // Get text before "Sources:"
+                            const utterance = new SpeechSynthesisUtterance(textBeforeSources);
+                            synth.speak(utterance);
+                        } else {
+                            const utterance = new SpeechSynthesisUtterance(resultText);
+                            synth.speak(utterance);
+                        }
+                        currentUtterance = utterance;
+                    } else {
+                        alert('There is no text to read.');
+                    }
+
+<!--                    if (resultText) {-->
+<!--                        const utterance = new SpeechSynthesisUtterance(resultText);-->
+<!--                        synth.speak(utterance);-->
+<!--                        currentUtterance = utterance;-->
+<!--                    } else {-->
+<!--                        alert('There is no text to read.');-->
+<!--                    }-->
+                });
+            });
+
+            stopSpeechButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Stop the currently playing speech
+                    if (currentUtterance) {
+                        synth.cancel();
+                    }
+                });
+            });
+
+            // Initialize speech recognition for all input fields
+            const speechRecognitionButtons = document.querySelectorAll('.speechRecognitionButton');
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+
+            speechRecognitionButtons.forEach(button => {
+                const inputFieldId = button.getAttribute('data-input-field');
+                const inputField = document.getElementById(inputFieldId);
+
+                button.addEventListener('click', function() {
+                    recognition.start();
+
+                    recognition.onresult = function(event) {
+                        const speechToText = event.results[0][0].transcript;
+                        inputField.value = speechToText;
+                        recognition.stop();
+                    };
+
+                    recognition.onerror = function(event) {
+                        console.error('Speech recognition error:', event.error);
+                        recognition.stop();
+                    };
+                });
+            });
+        });
+
+        document.getElementById('textForm1').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            const userInput1 = document.getElementById('text_input1').value;
+            const resultContainer = document.getElementById('result1'); // Get the result container for the first form
+            const loadingAnimation = document.getElementById('loadingAnimation'); // Get the loading animation element
+<!--            const citationContainer = document.getElementById('citation1'); // Get the citation container-->
+
+            loadingAnimation.style.display = 'block';
+
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `user_input1=${encodeURIComponent(userInput1)}`,
+            })
+            .then(response => response.text())
+            .then(result => {
+                loadingAnimation.style.display = 'none';
+
+                // Extract the sources from the result
+                const sourceStartIndex = result.indexOf('Sources:');
+                if (sourceStartIndex !== -1) {
+                    const sourceURLs = result.substr(sourceStartIndex);
+                    const sourceURLArray = sourceURLs.split('\n').slice(1); // Slice to remove the first empty element
+                    const sourceLinksHTML = sourceURLArray.map(url => {
+                        return `<a href="${url}" target="_blank">${url}</a><br>`;
+                    }).join('');
+                    // Replace the "Sources:" part with the hyperlinks
+                    resultContainer.innerHTML = result.substr(0, sourceStartIndex);
+                    resultContainer.innerHTML += `Sources:<br>${sourceLinksHTML}`;
+                } else {
+                    resultContainer.textContent = result;
+                }
+                
+<!--                // Extract source URLs and display them with each citation on a new line-->
+<!--                const sourceURLs = result.split("Sources:")[1];-->
+<!--                if (sourceURLs) {-->
+<!--                    const sourceURLArray = sourceURLs.split('\n').slice(1); // Slice to remove the first empty element-->
+<!--                    citationContainer.innerHTML = sourceURLArray.join('<br>'); // Join the array with line breaks-->
+<!--                } else {-->
+<!--                    citationContainer.textContent = "No sources found.";-->
+<!--                }-->
+            });
+        });
+    </script>
+</body>
+</html>
