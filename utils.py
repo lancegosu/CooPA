@@ -45,10 +45,7 @@ def grab_urls(query, num_link=5):
     if search_results:
         for item in search_results.get("items", []):
             urls.append(item["link"])
-          # print(item["title"])
-          # print(item["link"])
-          # print(item.get("snippet", ""))
-          # print("-----")
+
     return urls[:num_link]
 
 def download_url(url):
@@ -75,13 +72,11 @@ def extract_visible_text(html_content):
 def url_aggregated(urls):
     visible_text = ""
     for url in urls:
-        # url_to_download = "https://apnews.com/article/hawaii-wildfire-maui-lahaina-f5a7047d407f836f89e90dd7f10faa94"  # Replace this with your desired URL
         html_content = download_url(url)
 
         if html_content:
             visible_text += extract_visible_text(html_content) + "\n\n" + "------"
-            #if visible_text:
-                #print(visible_text)
+
     return visible_text
 
 def get_citation(urls):
@@ -95,15 +90,5 @@ def smart_search(query):
     From the list of articles: {articles}\n
     Answer the question in a minimum of 3 sentences: {query}
     """
-    # # Create a list of source URLs
-    # source_urls = "Sources:\n" + "\n".join(urls)
-    response = get_completion(prompt) #+ "\n\n" + source_urls
+    response = get_completion(prompt)
     return response
-    # Create a list of source URLs
-    # source_urls = "\n".join(urls)
-    # 
-    # text_result = get_completion(prompt)
-    # 
-    # combined_response = f"{text_result}\n\nSources:\n{source_urls}"
-    # 
-    # return combined_response
