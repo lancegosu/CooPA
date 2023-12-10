@@ -1,2 +1,2 @@
-# papaya
+# CooPA
 personal assistant
