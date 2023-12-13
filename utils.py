@@ -7,20 +7,22 @@ from dotenv import load_dotenv
 
 load_dotenv()  # Load environment variables from .env file
 
-# Access your environment variables
+# Access environment variables
 openai.api_key = os.getenv('OPENAI_API_KEY')
 gsearch_api_key = os.getenv('GSEARCH_API_KEY')
 cse_id = os.getenv('CSE_ID')
 
+# Function to get completion from OpenAI GPT-3.5-turbo model
 def get_completion(prompt, model="gpt-3.5-turbo"):
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
         model=model,
         messages=messages,
-        temperature=0, # this is the degree of randomness of the model's output
+        temperature=0,  # Degree of randomness of the model's output
     )
     return response.choices[0].message["content"]
 
+# Function to perform a Google search using the Custom Search JSON API
 def google_search(query, api_key, cse_id):
     base_url = "https://www.googleapis.com/customsearch/v1"
     params = {
@@ -37,17 +39,18 @@ def google_search(query, api_key, cse_id):
         print("Error:", response.status_code)
         return None
 
-def grab_urls(query, num_link=5):
-
+# Function to grab specified number of URLs from a Google search
+def grab_urls(query, num_links=5):
     search_results = google_search(query, gsearch_api_key, cse_id)
-
     urls = []
+
     if search_results:
         for item in search_results.get("items", []):
             urls.append(item["link"])
 
-    return urls[:num_link]
+    return urls[:num_links]
 
+# Function to download the content of a given URL
 def download_url(url):
     try:
         response = requests.get(url)
@@ -59,6 +62,7 @@ def download_url(url):
         print(f"An error occurred while downloading the URL: {e}")
         return None
 
+# Function to extract visible text from HTML content
 def extract_visible_text(html_content):
     try:
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -69,6 +73,7 @@ def extract_visible_text(html_content):
         print(f"An error occurred while extracting text: {e}")
         return None
 
+# Function to aggregate visible text from multiple URLs
 def url_aggregated(urls):
     visible_text = ""
     for url in urls:
@@ -79,12 +84,14 @@ def url_aggregated(urls):
 
     return visible_text
 
+# Function to get a citation from a list of URLs
 def get_citation(urls):
     source_urls = "\n".join(urls)
     return source_urls
 
+# Function to perform a smart search using Google, aggregate content, and generate a completion prompt
 def smart_search(query):
-    urls = grab_urls(query, num_link=4)
+    urls = grab_urls(query, num_links=4)
     articles = url_aggregated(urls)[:4000]
     prompt = f"""
     From the list of articles: {articles}\n
