@@ -30,7 +30,6 @@ def google_search(query, api_key, cse_id):
         "cx": cse_id,
         "q": query
     }
-
     response = requests.get(base_url, params=params)
     if response.status_code == 200:
         return response.json()
@@ -53,9 +52,7 @@ def download_url(url):
     try:
         response = requests.get(url)
         response.raise_for_status() # Raise an exception for 4xx and 5xx status codes
-        
-        # Assuming the content is text-based, you can access it using response.text
-        return response.text
+        return response.text # Assuming the content is text-based, you can access it using response.text
         
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while downloading the URL: {e}")
@@ -65,9 +62,7 @@ def download_url(url):
 def extract_visible_text(html_content):
     try:
         soup = BeautifulSoup(html_content, 'html.parser')
-        
-        # Get the visible text content using .get_text() method of BeautifulSoup
-        visible_text = soup.get_text()
+        visible_text = soup.get_text() # Get the visible text content using .get_text() method of BeautifulSoup
         return visible_text
         
     except Exception as e:
@@ -79,7 +74,6 @@ def url_aggregated(urls):
     visible_text = ""
     for url in urls:
         html_content = download_url(url)
-
         if html_content:
             visible_text += extract_visible_text(html_content) + "\n\n" + "------"
 
