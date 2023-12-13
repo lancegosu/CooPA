@@ -11,11 +11,9 @@ def home():
 def submit():
     user_input = request.form['user_input1']
     urls = grab_urls(user_input, num_link=4)
-    print(user_input)
     text = smart_search(user_input)
     citation = get_citation(urls)
     result = f"{text}\n\nSources:\n{citation}"
-    print(result)
     return result
 
 if __name__ == '__main__':
