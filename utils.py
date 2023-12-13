@@ -107,8 +107,9 @@ import fitz  # PyMuPDF
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv()  # Load environment variables from .env file
 
+# Access your environment variables
 openai.api_key = os.getenv('OPENAI_API_KEY')
 gsearch_api_key = os.getenv('GSEARCH_API_KEY')
 cse_id = os.getenv('CSE_ID')
@@ -146,13 +147,13 @@ def grab_urls(query, num_link=5):
     if search_results:
         for item in search_results.get("items", []):
             urls.append(item["link"])
-            
+
     return urls[:num_link]
 
 def download_url(url):
     try:
         response = requests.get(url)
-        response.raise_for_status()  # Raise an exception for 4xx and 5xx status codes
+        response.raise_for_status()
         return response.text
         
     except requests.exceptions.RequestException as e:
@@ -173,10 +174,10 @@ def url_aggregated(urls):
     visible_text = ""
     for url in urls:
         html_content = download_url(url)
-        
+
         if html_content:
             visible_text += extract_visible_text(html_content) + "\n\n" + "------"
-            
+
     return visible_text
 
 def get_citation(urls):
