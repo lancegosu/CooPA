@@ -13,8 +13,8 @@ def home():
 def submit():
     user_input = request.form['user_input1']  # Retrieve user input from the form
     
-    # Use the smart_search function to get relevant information
-    # and grab_urls to extract URLs related to the user input
+    # Use grab_urls to extract URLs related to the user input
+    # and smart_search to get relevant information
     urls = grab_urls(user_input, num_link=4)
     text = smart_search(user_input)
     
