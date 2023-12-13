@@ -3,6 +3,7 @@
 <head>
     <title>CooPA</title>
     <style>
+        /* CSS Styles for styling the page */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -19,6 +20,7 @@
             margin-top: 20px;
         }
 
+        /* Styles for the input text field */
         input[type="text"] {
             padding: 8px;
             border: 1px solid #ccc;
@@ -26,6 +28,7 @@
             font-size: 16px;
         }
 
+        /* Styles for the submit button */
         button[type="submit"] {
             padding: 8px 20px;
             background-color: #007bff;
@@ -38,7 +41,7 @@
 
         /* Styles for the result containers */
         .result-container {
-            text-align: left; /* Align text to the left within the result containers */
+            text-align: left;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -48,32 +51,41 @@
         }
     </style>
 </head>
+    
 <body>
     <h1>CooPA</h1>
+    <!-- Form for user input -->
     <form id="textForm1">
         <label for="text_input1">Ask PA anything!</label>
         <input type="text" id="text_input1" name="user_input1" placeholder="Speak or type your input here">
+        <!-- Button for speech recognition -->
         <button type="button" class="speechRecognitionButton" data-input-field="text_input1">Speak</button>
         <button type="submit">Submit</button>
     </form>
     <br>
+    <!-- Result container for displaying the output -->
     <div class="result-container" id="result1"></div>
+    <!-- Loading animation element -->
     <div id="loadingAnimation" style="display: none;">
         Loading...
     </div>
     <br>
+    <!-- Buttons for text-to-speech functionality -->
     <button class="textToSpeechButton" data-result-container="result1">Listen to Result</button>
     <button class="stopSpeechButton">Stop</button>
 
     <script>
+        // Wait for the DOM content to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize the TTS feature for all forms
             const synth = window.speechSynthesis;
             let currentUtterance = null;
 
+            // Get all text-to-speech and stop speech buttons
             const textToSpeechButtons = document.querySelectorAll('.textToSpeechButton');
             const stopSpeechButtons = document.querySelectorAll('.stopSpeechButton');
 
+            // Add event listeners for text-to-speech buttons
             textToSpeechButtons.forEach(button => {
                 button.addEventListener('click', function(event) {
                     // Stop any currently playing speech
@@ -81,6 +93,7 @@
                         synth.cancel();
                     }
 
+                    // Get the result container and its text
                     const resultContainerId = event.target.getAttribute('data-result-container');
                     const resultContainer = document.getElementById(resultContainerId);
                     const resultText = resultContainer.textContent;
@@ -102,6 +115,7 @@
                 });
             });
 
+            // Add event listeners for stop speech buttons
             stopSpeechButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     // Stop the currently playing speech
@@ -116,6 +130,7 @@
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             const recognition = new SpeechRecognition();
 
+            // Add event listeners for speech recognition buttons
             speechRecognitionButtons.forEach(button => {
                 const inputFieldId = button.getAttribute('data-input-field');
                 const inputField = document.getElementById(inputFieldId);
@@ -137,6 +152,7 @@
             });
         });
 
+        // Add submit event listener to the form
         document.getElementById('textForm1').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent form submission
             const userInput1 = document.getElementById('text_input1').value;
@@ -145,6 +161,7 @@
 
             loadingAnimation.style.display = 'block';
 
+            // Send user input to the server
             fetch('/submit', {
                 method: 'POST',
                 headers: {
