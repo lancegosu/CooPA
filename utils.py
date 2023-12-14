@@ -1,7 +1,6 @@
 import openai
 import requests
 from bs4 import BeautifulSoup
-import fitz  # PyMuPDF
 import os
 from dotenv import load_dotenv
 
@@ -90,7 +89,7 @@ def smart_search(query):
     articles = url_aggregated(urls)[:4000]
     prompt = f"""
     From the list of articles: {articles}\n
-    Answer the question in a minimum of 3 sentences: {query}
+    Use the given articles and your common knowledge to answer the question in a minimum of 3 sentences: {query}
     """
     response = get_completion(prompt)
     return response
