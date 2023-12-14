@@ -9,6 +9,8 @@ load_dotenv()  # Load environment variables from .env file
 
 # Access environment variables
 openai.api_key = os.getenv('OPENAI_API_KEY')
+gsearch_api_key = os.getenv('GSEARCH_API_KEY')
+cse_id = os.getenv('CSE_ID')
 
 # Function to get completion from OpenAI GPT-3.5-turbo model
 def get_completion(prompt, model="gpt-3.5-turbo"):
