@@ -1,4 +1,4 @@
-import openai
+from openai import OpenAI
 import requests
 from bs4 import BeautifulSoup
 import os
@@ -7,19 +7,19 @@ from dotenv import load_dotenv
 load_dotenv()  # Load environment variables from .env file
 
 # Access environment variables
-openai.api_key = os.getenv('OPENAI_API_KEY')
+client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 gsearch_api_key = os.getenv('GSEARCH_API_KEY')
 cse_id = os.getenv('CSE_ID')
 
 # Function to get completion from OpenAI GPT-3.5-turbo model
 def get_completion(prompt, model="gpt-3.5-turbo"):
-    messages = [{"role": "user", "content": prompt}]
-    response = openai.ChatCompletion.create(
+    chat_completion = client.chat.completions.create(
+        messages=[
+            {"role": "user", "content": prompt},
+        ],
         model=model,
-        messages=messages,
-        temperature=0, # Degree of randomness of the model's output
     )
-    return response.choices[0].message["content"]
+    return chat_completion.choices[0].message.content
 
 # Function to perform a Google search using the Custom Search JSON API
 def google_search(query, api_key, cse_id):
