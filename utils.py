@@ -11,8 +11,8 @@ client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 gsearch_api_key = os.getenv('GSEARCH_API_KEY')
 cse_id = os.getenv('CSE_ID')
 
-# Function to get completion from OpenAI GPT-3.5-turbo model
-def get_completion(prompt, model="gpt-3.5-turbo"):
+# Function to get completion from OpenAI GPT-3.5-turbo-1106 model
+def get_completion(prompt, model="gpt-3.5-turbo-1106"):
     chat_completion = client.chat.completions.create(
         messages=[
             {"role": "user", "content": prompt},
@@ -86,7 +86,7 @@ def get_citation(urls):
 # Function to perform a smart search using Google, aggregate content, and generate a completion prompt
 def smart_search(query):
     urls = grab_urls(query, num_link=4)
-    articles = url_aggregated(urls)[:4000]
+    articles = url_aggregated(urls)[:16000]
     prompt = f"""
     From the list of articles: {articles}\n
     Use the given articles and your common knowledge to answer the question in a minimum of 3 sentences: {query}
