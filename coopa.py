@@ -17,7 +17,7 @@ def submit():
     if not user_input:
         return "Please provide a valid input."
         
-    urls = grab_urls(user_input, num_link=4) # Extract URLs related to the user input
+    urls = grab_urls(user_input, num_link=3) # Extract URLs related to the user input
     text = smart_search(user_input) # Get relevant information
     citation = get_citation(urls)
     result = f"{text}\n\nSources:\n{citation}"
