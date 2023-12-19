@@ -69,9 +69,9 @@ def extract_visible_text(html_content):
         return None
 
 # Function to aggregate visible text from multiple URLs
-def url_aggregated(urls):
+def url_aggregated(urls, num_link):
     visible_text = ""
-    for url in urls:
+    for url in urls[:num_link]:
         html_content = download_url(url)
         if html_content:
             visible_text += extract_visible_text(html_content) + "\n\n" + "------"
@@ -86,7 +86,7 @@ def get_citation(urls):
 # Function to perform a smart search using Google, aggregate content, and generate a completion prompt
 def smart_search(query):
     urls = grab_urls(query, num_link=3)
-    articles = url_aggregated(urls)
+    articles = url_aggregated(urls, num_link=3)
     prompt = f"""
     From the list of articles: {articles[:16000]}\n
     Use the given articles and your common knowledge to answer the question in a minimum of 3 sentences: {query}
