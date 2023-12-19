@@ -22,7 +22,7 @@ def get_completion(prompt, model="gpt-3.5-turbo-1106"):
     return chat_completion.choices[0].message.content
 
 # Function to perform a Google search using the Custom Search JSON API
-def google_search(query, api_key, cse_id):
+def google_search(query, gsearch_api_key, cse_id):
     base_url = "https://www.googleapis.com/customsearch/v1"
     params = {
         "key": gsearch_api_key,
