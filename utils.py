@@ -37,7 +37,7 @@ def google_search(query, api_key, cse_id):
         return None
 
 # Function to grab specified number of URLs from a Google search
-def grab_urls(query, num_link=5):
+def grab_urls(query, num_link=3):
     search_results = google_search(query, gsearch_api_key, cse_id)
     urls = []
     if search_results:
@@ -85,10 +85,10 @@ def get_citation(urls):
 
 # Function to perform a smart search using Google, aggregate content, and generate a completion prompt
 def smart_search(query):
-    urls = grab_urls(query, num_link=4)
-    articles = url_aggregated(urls)[:16000]
+    urls = grab_urls(query, num_link=3)
+    articles = url_aggregated(urls)
     prompt = f"""
-    From the list of articles: {articles}\n
+    From the list of articles: {articles[:16000]}\n
     Use the given articles and your common knowledge to answer the question in a minimum of 3 sentences: {query}
     """
     response = get_completion(prompt)
