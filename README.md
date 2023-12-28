@@ -10,6 +10,7 @@ CooPA is a Flask web application that leverages OpenAI's ChatGPT API and the Goo
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [Configuration](#configuration)
+- [Note](#note)
 
 ## Purpose
 
