@@ -1,4 +1,4 @@
-# CooPA
+# CooPA (Personal Assistant)
 
 CooPA is a web-based application that leverages the power of OpenAI's GPT-3.5-turbo and Google's Custom Search API to provide an informative experience. It allows users to ask questions, and it responds by intelligently using information from search results.
 
