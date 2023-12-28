@@ -1,43 +1,72 @@
-# CooPA (Personal Assistant)
+# CooPA - Contextualized Search with Language Models
 
-CooPA is a web-based application that leverages the power of OpenAI's GPT-3.5-turbo and Google's Custom Search API to provide an informative experience. It allows users to ask questions, and it responds by intelligently using information from search results.
+CooPA is a Flask web application that leverages OpenAI's language model and the Google Custom Search API to provide contextually relevant answers to user queries based on aggregated article content.
 
-## Features
+## Table of Contents
 
-- **Smart Search**: CooPA performs a smart search using Google, aggregates content from relevant articles, and generates a comprehensive response.
-  
-- **ChatGPT API Integration**: The application utilizes the ChatGPT API to answer user queries based on aggregated article content.
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [License](#license)
 
-- **Source Citation**: CooPA provides source citations by extracting URLs from the search results, enhancing transparency and credibility.
+## Prerequisites
 
-- **Voice Interaction**: Users can input queries through both typing and speech recognition for a seamless conversational experience.
+Before you begin, ensure you have the following installed:
 
-- **Text-to-Speech**: CooPA includes a text-to-speech feature, allowing users to listen to the generated responses.
-
-## Dependencies
-
-- ChatGPT API
-- Google Custom Search JSON API
+- Python (3.6 or higher)
 - Flask
-- Requests
-- BeautifulSoup
+- Requests library (`pip install requests`)
+- BeautifulSoup library (`pip install beautifulsoup4`)
+- OpenAI Python library (`pip install openai`)
+- Python-dotenv library (`pip install python-dotenv`)
 
-## Getting Started
+## Installation
 
-1. Clone the repository: `git clone https://github.com/lancerai/coopa.git`
-2. Install dependencies: `pip install -r requirements.txt`
-3. Set up environment variables in a `.env` file with your OpenAI API key, GSearch API key, and CSE ID.
+1. Clone the repository:
 
-- OPENAI_API_KEY=your_openai_api_key
-- GSEARCH_API_KEY=your_gsearch_api_key
-- CSE_ID=your_cse_id
+    ```bash
+    git clone https://github.com/your-username/CooPA.git
+    cd CooPA
+    ```
 
-4. Run the application: python coopa.py
-5. Access the application in your browser at http://127.0.0.1:5000/
+2. Install the required dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Set up your OpenAI API key, Google Custom Search API key, and Custom Search Engine ID in the `.env` file:
+
+    ```env
+    OPENAI_API_KEY=your-openai-api-key
+    GSEARCH_API_KEY=your-google-search-api-key
+    CSE_ID=your-custom-search-engine-id
+    ```
 
 ## Usage
-1. Enter your query in the input field and click "Submit."
-2. Explore the summarized response and source citations.
-3. Use the text-to-speech feature for auditory feedback.
 
-Feel free to ask questions, seek information, and enjoy a conversational experience with CooPA!
+1. Start the Flask application:
+
+    ```bash
+    python coopa.py
+    ```
+
+2. Open your web browser and go to [http://localhost:5000/](http://localhost:5000/) to access CooPA.
+
+3. Enter your query in the input field and submit the form to receive contextually relevant answers based on aggregated article content.
+
+## Project Structure
+
+- **`utils.py`**: Contains utility functions for interacting with OpenAI's language model, performing Google searches, and aggregating content from articles.
+
+- **`coopa.py`**: Flask application handling web requests, user input processing, and result rendering.
+
+- **`index.html`**: HTML template for the user interface, including the input form, result container, and buttons for text-to-speech functionality.
+
+## Configuration
+
+- **OpenAI API Key**: Obtain your API key from the [OpenAI API](https://beta.openai.com/signup/) and set it in `OPENAI_API_KEY` in the `.env` file.
+
+- **Google Custom Search API Key and CSE ID**: Set up a Custom Search Engine on [Google Custom Search](https://programmablesearchengine.google.com/about/) and obtain the API key and CSE ID. Set them in `GSEARCH_API_KEY` and `CSE_ID` in the `.env` file.
