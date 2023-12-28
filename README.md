@@ -1,14 +1,19 @@
-# CooPA - Contextualized Search with ChatGPT
+# CooPA - Contextualized Personal Assistant
 
 CooPA is a Flask web application that leverages OpenAI's ChatGPT API and the Google Custom Search API to deliver contextually informed answers by aggregating relevant content from online articles based on user queries.
 
 ## Table of Contents
 
+- [Purpose](#purpose)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [Configuration](#configuration)
+
+## Purpose
+
+CooPA is designed to redefine the interaction between users and information. Utilizing OpenAI's GPT-3.5-turbo, CooPA seamlessly integrates natural language processing and web scraping to enable users to ask questions or seek information by conversing with the system. By leveraging a cutting-edge language model and Google's Custom Search API, CooPA empowers users to obtain concise and relevant answers from aggregated article content, enhancing the efficiency and accessibility of information retrieval. Whether through voice or text input, CooPA aims to provide an intuitive interface for users to effortlessly access knowledge and deliver insightful responses.
 
 ## Features
 
