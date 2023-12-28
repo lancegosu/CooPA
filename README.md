@@ -4,30 +4,29 @@ CooPA is a Flask web application that leverages OpenAI's language model and the 
 
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
+- [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [Configuration](#configuration)
 - [License](#license)
 
-## Prerequisites
+## Features
 
-Before you begin, ensure you have the following installed:
+- **Smart Search**: Perform intelligent searches using Google Custom Search and aggregate content from relevant articles to generate comprehensive answers.
 
-- Python (3.6 or higher)
-- Flask
-- Requests library (`pip install requests`)
-- BeautifulSoup library (`pip install beautifulsoup4`)
-- OpenAI Python library (`pip install openai`)
-- Python-dotenv library (`pip install python-dotenv`)
+- **Language Model Interaction**: Utilize OpenAI's GPT-3.5-turbo for generating contextually informed responses to user queries.
+
+- **Speech Recognition and Synthesis**: Enable users to input queries through speech and listen to the synthesized responses.
+
+- **Source Attribution**: Automatically include source URLs when presenting the aggregated content, offering transparency and credibility.
 
 ## Installation
 
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/lancerai/CooPA.git
+    git clone https://lancerai/CooPA.git
     cd CooPA
     ```
 
