@@ -6,7 +6,7 @@ CooPA is a web-based application that leverages the power of OpenAI's GPT-3.5-tu
 
 - **Smart Search**: CooPA performs a smart search using Google, aggregates content from relevant articles, and generates a comprehensive response.
   
-- **Summarization**: The application utilizes OpenAI's GPT-3.5-turbo to summarize articles intelligently.
+- **ChatGPT API Integration**: The application utilizes the ChatGPT API to answer user queries based on aggregated article content.
 
 - **Source Citation**: CooPA provides source citations by extracting URLs from the search results, enhancing transparency and credibility.
 
@@ -16,7 +16,7 @@ CooPA is a web-based application that leverages the power of OpenAI's GPT-3.5-tu
 
 ## Dependencies
 
-- OpenAI GPT-3.5-turbo
+- ChatGPT API
 - Google Custom Search JSON API
 - Flask
 - Requests
