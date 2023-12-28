@@ -27,7 +27,7 @@ CooPA is a web-based application that leverages the power of OpenAI's GPT-3.5-tu
 1. Clone the repository: `git clone https://github.com/lancerai/coopa.git`
 2. Install dependencies: `pip install -r requirements.txt`
 3. Set up environment variables in a `.env` file with your OpenAI API key, GSearch API key, and CSE ID.
-- OPENAI_API_KEY=your_openai_api_key
+-- OPENAI_API_KEY=your_openai_api_key
 - GSEARCH_API_KEY=your_gsearch_api_key
 - CSE_ID=your_cse_id
 4. Run the application: python coopa.py
