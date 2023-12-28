@@ -73,3 +73,7 @@ CooPA is designed to redefine the interaction between users and information. Uti
 - **OpenAI API Key**: Obtain your API key from the [OpenAI API](https://beta.openai.com/signup/) and set it in `OPENAI_API_KEY` in the `.env` file.
 
 - **Google Custom Search API Key and CSE ID**: Set up a Custom Search Engine on [Google Custom Search](https://programmablesearchengine.google.com/about/) and obtain the API key and CSE ID. Set them in `GSEARCH_API_KEY` and `CSE_ID` in the `.env` file.
+
+## Note
+
+Make sure to comply with OpenAI's use-case policies and guidelines when using this app.
