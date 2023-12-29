@@ -10,6 +10,7 @@ CooPA is a Flask web application that leverages OpenAI's ChatGPT API and the Goo
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [Configuration](#configuration)
+- [Contributing](#contributing)
 - [Note](#note)
 
 ## Purpose
@@ -74,6 +75,9 @@ CooPA is designed to redefine the interaction between users and information. Uti
 - **OpenAI API Key**: Obtain your API key from the [OpenAI API](https://beta.openai.com/signup/) and set it in `OPENAI_API_KEY` in the `.env` file.
 
 - **Google Custom Search API Key and CSE ID**: Set up a Custom Search Engine on [Google Custom Search](https://programmablesearchengine.google.com/about/) and obtain the API key and CSE ID. Set them in `GSEARCH_API_KEY` and `CSE_ID` in the `.env` file.
+
+## Contributing
+Contributions are welcome! Feel free to open issues and pull requests.
 
 ## Note
 
